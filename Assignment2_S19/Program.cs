@@ -53,6 +53,8 @@ namespace Assignment2_S19
             Console.WriteLine("\n\nDay of Programmer");
             int year = 2017;
             Console.WriteLine(dayOfProgrammer(year));
+            
+            // Team members - Neti, Janvi, Maria
         }
         /* This function will display the array */
         static void displayArray(int []arr) {
