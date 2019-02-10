@@ -138,24 +138,95 @@ namespace Assignment2_S19
             return "";
         }
 
-        // Complete the missingNumbers function below.
+        /* This function will find the missing elements in the array */
         static int[] missingNumbers(int[] arr, int[] brr)
         {
-            return new int[] { };
+            // Sort both the arrays in ascending order
+            int[] missingArray = sortAscArray(arr);
+            int[] orignalArray = sortAscArray(brr);
+
+            List<int> resultList = new List<int>();
+
+            for (int i = 0; i < orignalArray.Length; i++)
+            {
+                int data = orignalArray[i];
+                // If the element has already been indentifed as missing,
+                // move on to the next element in the orignal array and continue with the next loop
+                if (getFreqOfElement(resultList.ToArray(), data) > 0)
+                {
+                    continue;
+                }
+                // If the frequency of the element in orignalArray is not the same as in missing array, 
+                // add it in the final resultList
+                if (getFreqOfElement(orignalArray, data) != getFreqOfElement(missingArray, data))
+                {
+                    resultList.Add(data);
+                }
+            }
+            return resultList.ToArray();
         }
 
+        /* This function will get the frequency of an element in the array */
+        static int getFreqOfElement(int[] arr, int num)
+        {
+            int count = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == num)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
 
-        // Complete the gradingStudents function below.
+        /* This function will round up the grades of the students if needed */
         static int[] gradingStudents(int[] grades)
         {
-            return new int[] { };
+            for (int i = 0; i < grades.Length; i++)
+            {
+                int grade = grades[i];
+                // Case 1 ) If the difference between the grade and the next multiple of 5 is less than 3,
+                // round grade up to the next multiple of 5.
+                // Case 2 ) If the value of grade is less than 38,
+                // no rounding occurs as the result will still be a failing grade.
+                if ((getNextMultipleOfFive(grade) - grade) < 3 && grade >= 38)
+                {
+                    grades[i] = getNextMultipleOfFive(grade);
+                }
+            }
+            return grades;
         }
 
-        // Complete the findMedian function below.
+        /* This function will get the next multiple of 5 for a number */
+        static int getNextMultipleOfFive(int n)
+        {
+            int quotient = n / 10;
+            int remainder = n % 10;
+
+            if (remainder == 5)
+            {
+                // Number is already a multiple of 5
+                return n;
+            }
+            else if (remainder > 5)
+            {
+                return (quotient * 10 + 10);
+            }
+            else
+            {
+                return (quotient * 10 + 5);
+            }
+        }
+
+        /* This function will find the median of the array having odd number of elements */
         static int findMedian(int[] arr)
         {
-            return 0;
+            int[] sortedArray = sortAscArray(arr);
+            int middleIndex = sortedArray.Length / 2;
+            return arr[middleIndex];
         }
+
 
         // Complete the closestNumbers function below.
         static int[] closestNumbers(int[] arr)
